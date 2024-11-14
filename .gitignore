@@ -4,3 +4,6 @@
 /var/
 /vendor/
 /mysql
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

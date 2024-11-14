@@ -15,6 +15,9 @@ class GetUsersByStatusHandler
         private readonly UserRepositoryInterface $userRepository
     ) {}
 
+    /**
+     * @return array<int, UserDTO>
+     */
     public function __invoke(GetUsersByStatusQuery $query): array
     {
         $users = $this->userRepository->getUsersByStatus(
@@ -23,11 +26,11 @@ class GetUsersByStatusHandler
 
         $output = [];
 
-        foreach ($users as $user) {
+        foreach ($users as $row) {
             $output[] = new UserDTO(
-                $user['id'],
-                $user['email'],
-                boolval($user['isActive'])
+                $row['id'],
+                $row['email'],
+                boolval($row['isActive'])
             );
         }
 

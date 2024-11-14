@@ -8,8 +8,8 @@ use App\Core\User\Domain\Status\UserStatus;
 
 interface UserRepositoryInterface
 {
-      /**
-     * @return User[]
+    /**
+     * @return array<int, mixed>
      */
     public function getUsersByStatus(UserStatus $userStatus): array;
 

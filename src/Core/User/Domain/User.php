@@ -48,7 +48,7 @@ class User
 
     public function setIsActive(): self
     {
-        $this->isActive = 1;
+        $this->isActive = true;
         return $this;
     }
 

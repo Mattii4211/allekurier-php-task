@@ -35,7 +35,7 @@ class GetInvoices extends Command
             
             /** @var InvoiceDTO $invoice */
             foreach ($invoices as $invoice) {
-                $output->writeln($invoice->id);
+                $output->writeln("$invoice->id");
             }
     
             return Command::SUCCESS;

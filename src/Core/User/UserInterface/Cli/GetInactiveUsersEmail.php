@@ -32,7 +32,7 @@ class GetInactiveUsersEmail extends Command
             )
         );
 
-        /** @var UserDTO $users */
+        /** @var  array<int, UserDTO> $users */
          foreach ($users as $key => $user) {
             $output->writeln("$key. $user->email");
         }
