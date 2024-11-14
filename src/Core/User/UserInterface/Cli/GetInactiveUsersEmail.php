@@ -14,10 +14,10 @@ use App\Core\User\Application\Query\GetUsersByStatus\GetUsersByStatusQuery;
 use App\Core\User\Domain\Status\UserStatus;
 
 #[AsCommand(
-    name: 'app:user:get-inactive',
+    name: 'app:user:get-inactive-emails',
     description: 'Lista nieaktywnych użytkowników'
 )]
-class GetInactiveUsers extends Command
+class GetInactiveUsersEmail extends Command
 {
     public function __construct(private readonly QueryBusInterface $bus)
     {
@@ -33,8 +33,8 @@ class GetInactiveUsers extends Command
         );
 
         /** @var UserDTO $users */
-         foreach ($users as $user) {
-            $output->writeln("$user->id. $user->email");
+         foreach ($users as $key => $user) {
+            $output->writeln("$key. $user->email");
         }
 
         return Command::SUCCESS;

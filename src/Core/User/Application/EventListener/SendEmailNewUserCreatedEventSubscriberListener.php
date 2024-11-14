@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace App\Core\User\Application\EventListener;
 
 use App\Core\User\Domain\Event\UserCreatedEvent;
-use App\Core\User\Domain\Notification\NotificationInterface;
+use App\Common\Mailer\MailerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SendEmailNewUserCreatedEventSubscriberListener implements EventSubscriberInterface
 {
-    public function __construct(private readonly NotificationInterface $mailer)
+    public function __construct(private readonly MailerInterface $mailer)
     {
     }
 
     public function send(UserCreatedEvent $event): void
     {
-        $this->mailer->sendEmail(
+        $this->mailer->send(
             $event->user->getEmail(),
             'Utworzono konto',
             'Zarejestrowano konto w systemie. Aktywacja konta trwa do 24h'

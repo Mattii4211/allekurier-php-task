@@ -27,7 +27,7 @@ class GetUsersByStatusHandler
             $output[] = new UserDTO(
                 $user['id'],
                 $user['email'],
-                $user['isActive']
+                boolval($user['isActive'])
             );
         }
 

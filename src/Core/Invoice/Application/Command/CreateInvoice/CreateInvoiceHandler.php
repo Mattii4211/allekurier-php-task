@@ -4,6 +4,7 @@ namespace App\Core\Invoice\Application\Command\CreateInvoice;
 
 use App\Core\Invoice\Domain\Invoice;
 use App\Core\Invoice\Domain\Repository\InvoiceRepositoryInterface;
+use App\Core\User\Domain\Exception\UserException;
 use App\Core\User\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -17,11 +18,17 @@ class CreateInvoiceHandler
 
     public function __invoke(CreateInvoiceCommand $command): void
     {
-        $this->invoiceRepository->save(new Invoice(
-            $this->userRepository->getByEmail($command->email),
-            $command->amount
-        ));
-
-        $this->invoiceRepository->flush();
+        $user = $this->userRepository->getByEmail($command->email);
+        
+        if ($user->getIsActive()) {
+            $this->invoiceRepository->save(new Invoice(
+                $user,
+                $command->amount
+            ));
+    
+            $this->invoiceRepository->flush();
+        } else {
+            throw new UserException("User is inactive, can't generate an invoice");
+        }
     }
 }
