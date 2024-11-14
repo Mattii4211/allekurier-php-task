@@ -25,14 +25,35 @@ class User
      */
     private string $email;
 
+     /**
+     * @ORM\Column(type="smallint", nullable=false, options={"default" : 0})
+     */
+    private bool $isActive = false;
+
     public function __construct(string $email)
     {
         $this->id = null;
         $this->email = $email;
     }
 
+    public function getId(): int 
+    {
+        return $this->id;
+    }
+
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function setIsActive(): self
+    {
+        $this->isActive = 1;
+        return $this;
+    }
+
+    public function getIsActive(): bool
+    {
+        return boolval($this->isActive);
     }
 }
